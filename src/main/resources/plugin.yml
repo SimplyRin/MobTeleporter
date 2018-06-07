@@ -1,0 +1,9 @@
+main: net.simplyrin.mobteleporter.Main
+name: MobTeleporter
+version: 1.0
+author: SimplyRin
+license: MIT
+commands:
+  mobtp:
+  mobteleport:
+  mobteleporter:
