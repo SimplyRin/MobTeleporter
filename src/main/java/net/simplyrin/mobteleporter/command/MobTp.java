@@ -1,6 +1,8 @@
 package net.simplyrin.mobteleporter.command;
 
+import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -78,6 +80,16 @@ public class MobTp implements CommandExecutor {
 				}
 				return true;
 			}
+			if(args[0].equalsIgnoreCase("info")) {
+				this.instance.sendMessage(sender, "&bワールド情報");
+				for(World world : this.instance.getServer().getWorlds()) {
+					this.instance.sendMessage(sender, "&b- &a" + world.getName());
+				}
+				this.instance.sendMessage(sender, "&bプレイヤー情報");
+				this.instance.sendMessage(sender, "&aワールド名: &b" + player.getWorld().getName());
+				this.instance.sendMessage(sender, "&a座標: &b" + player.getLocation().getBlockX() + " / " + player.getLocation().getBlockY() + " / " + player.getLocation().getBlockZ());
+				return true;
+			}
 			if(args[0].equalsIgnoreCase("reset")) {
 				EntityManager entityManager = this.instance.getEntityManager().get(player.getName());
 				entityManager.resetEntityList();
@@ -94,17 +106,30 @@ public class MobTp implements CommandExecutor {
 				}
 
 				for(Entity entity : entityManager.getEntityList()) {
-					entity.teleport(player);
+					if(entity != null) {
+						entity.getLocation().setWorld(player.getWorld());
+						entity.teleport(new Location(player.getWorld(), player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ()));
+					}
 				}
-				entityManager.resetEntityList();
+
+				boolean keep = false;
+				if(args.length > 1) {
+					if(args[1].equalsIgnoreCase("-keep")) {
+						keep = true;
+					}
+				}
+				if(keep) {
+					entityManager.resetEntityList();
+				}
+
 				this.instance.getEntityManager().put(player.getName(), entityManager);
 
-				this.instance.sendMessage(sender, "&b全ての Mob を現在地に移動させました！");
+				this.instance.sendMessage(sender, "&b全ての Mob を現在地に移動させました！" + (keep ? " (リストキープ)" : ""));
 				return true;
 			}
 		}
 
-		this.instance.sendMessage(sender, "&cUsage: /" + cmd.getName() + " <wand|list|reset|tp>");
+		this.instance.sendMessage(sender, "&cUsage: /" + cmd.getName() + " <wand|list|info|reset|tp(-keep)>");
 		return true;
 	}
 

@@ -38,20 +38,23 @@ import net.simplyrin.mobteleporter.tool.EntityManager;
  */
 public class Main extends JavaPlugin implements Listener {
 
-	private static Main instance;
+	private Main instance;
 
+	/**
+	 * player.getName(), new EntityManager(player);
+	 */
 	@Getter
 	private HashMap<String, EntityManager> entityManager = new HashMap<>();
 
 	@Override
 	public void onEnable() {
-		instance = this;
+		this.instance = this;
 
-		instance.getCommand("mobtp").setExecutor(new MobTp(instance));
-		instance.getCommand("mobteleport").setExecutor(new MobTp(instance));
-		instance.getCommand("mobteleporter").setExecutor(new MobTp(instance));
+		this.instance.getCommand("mobtp").setExecutor(new MobTp(this.instance));
+		this.instance.getCommand("mobteleport").setExecutor(new MobTp(this.instance));
+		this.instance.getCommand("mobteleporter").setExecutor(new MobTp(this.instance));
 
-		instance.getServer().getPluginManager().registerEvents(new TeleportListener(instance), instance);
+		this.instance.getServer().getPluginManager().registerEvents(new TeleportListener(this.instance), this.instance);
 	}
 
 	public void sendMessage(CommandSender sender, String message) {
