@@ -51,7 +51,7 @@ public class MobTp implements CommandExecutor {
 			return true;
 		}
 
-		if(!sender.hasPermission("not_griefing.command")) {
+		if(!sender.hasPermission("mobtp.command")) {
 			this.instance.sendMessage(sender, "§cYou do not have access to this command");
 			this.instance.sendMessage(sender, "§cPlease contact to SimplyRin!");
 			return true;
