@@ -117,9 +117,9 @@ public class MobTp implements CommandExecutor {
 				}
 				if(keep) {
 					entityManager.resetEntityList();
+					this.instance.getEntityManager().put(player.getName(), entityManager);
 				}
 
-				this.instance.getEntityManager().put(player.getName(), entityManager);
 				this.instance.sendMessage(sender, "&b全ての Mob を現在地に移動させました！" + (keep ? " (リストキープ)" : ""));
 				return true;
 			}
