@@ -85,6 +85,8 @@ public class TeleportListener implements Listener {
 				return;
 			}
 
+			event.setCancelled(true);
+
 			this.instance.getEntityManager().get(player.getName()).addEntity(entity);
 			this.instance.sendMessage(player, "&c'&b" + entity.getType().getName() + "&c' &eをリストに追加しました！");
 			return;
