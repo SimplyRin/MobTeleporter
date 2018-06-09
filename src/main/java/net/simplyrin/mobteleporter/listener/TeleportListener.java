@@ -76,6 +76,10 @@ public class TeleportListener implements Listener {
 
 			Entity entity = event.getRightClicked();
 
+			if(entity instanceof Player) {
+				return;
+			}
+
 			EntityManager entityManager = this.instance.getEntityManager().get(player.getName());
 			entityManager.addEntity(entity);
 			this.instance.getEntityManager().put(player.getName(), entityManager);
