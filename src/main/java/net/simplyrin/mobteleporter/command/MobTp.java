@@ -60,6 +60,7 @@ public class MobTp implements CommandExecutor {
 		}
 
 		Player player = (Player) sender;
+		EntityManager entityManager = this.instance.getEntityManager().get(player.getName());
 
 		if(args.length > 0) {
 			if(args[0].equalsIgnoreCase("wand")) {
@@ -73,7 +74,6 @@ public class MobTp implements CommandExecutor {
 				return true;
 			}
 			if(args[0].equalsIgnoreCase("list")) {
-				EntityManager entityManager = this.instance.getEntityManager().get(player.getName());
 				this.instance.sendMessage(sender, "&b追加されている Entity リスト");
 				for(Entity entity : entityManager.getEntityList()) {
 					this.instance.sendMessage(sender, "&e- &c'&b" + entity.getType().getName() + "&c'");
@@ -91,15 +91,12 @@ public class MobTp implements CommandExecutor {
 				return true;
 			}
 			if(args[0].equalsIgnoreCase("reset")) {
-				EntityManager entityManager = this.instance.getEntityManager().get(player.getName());
 				entityManager.resetEntityList();
 				this.instance.getEntityManager().put(player.getName(), entityManager);
 				this.instance.sendMessage(sender, "&cEntity リストをリセットしました！");
 				return true;
 			}
 			if(args[0].equalsIgnoreCase("tp")) {
-				EntityManager entityManager = this.instance.getEntityManager().get(player.getName());
-
 				if(entityManager.getEntityList() == null) {
 					this.instance.sendMessage(sender, "&cリストに Entity が存在しません！");
 					return true;
@@ -120,9 +117,8 @@ public class MobTp implements CommandExecutor {
 				}
 				if(keep) {
 					entityManager.resetEntityList();
+					this.instance.getEntityManager().put(player.getName(), entityManager);
 				}
-
-				this.instance.getEntityManager().put(player.getName(), entityManager);
 
 				this.instance.sendMessage(sender, "&b全ての Mob を現在地に移動させました！" + (keep ? " (リストキープ)" : ""));
 				return true;
