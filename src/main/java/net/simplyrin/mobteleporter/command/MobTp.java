@@ -75,8 +75,12 @@ public class MobTp implements CommandExecutor {
 			}
 			if(args[0].equalsIgnoreCase("list")) {
 				this.instance.sendMessage(sender, "&b追加されている Entity リスト");
-				for(Entity entity : entityManager.getEntityList()) {
-					this.instance.sendMessage(sender, "&e- &c'&b" + entity.getType().getName() + "&c'");
+				if(entityManager.getEntityList().isEmpty()) {
+					this.instance.sendMessage(sender, "&e- &c'null'");
+				} else {
+					for(Entity entity : entityManager.getEntityList()) {
+						this.instance.sendMessage(sender, "&e- &c'&b" + entity.getType().getName() + "&c'");
+					}
 				}
 				return true;
 			}
