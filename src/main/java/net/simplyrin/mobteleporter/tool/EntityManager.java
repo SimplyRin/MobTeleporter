@@ -6,6 +6,8 @@ import java.util.List;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
+import lombok.Getter;
+
 /**
  * Created by SimplyRin on 2018/06/08.
  *
@@ -31,16 +33,14 @@ import org.bukkit.entity.Player;
  */
 public class EntityManager {
 
+	@Getter
 	private Player player;
+	@Getter
 	private List<Entity> entityList;
 
 	public EntityManager(Player player) {
 		this.player = player;
 		this.resetEntityList();
-	}
-
-	public Player getManagerOwner() {
-		return this.player;
 	}
 
 	public EntityManager addEntity(Entity entity) {
@@ -51,10 +51,6 @@ public class EntityManager {
 	public EntityManager removeEntity(Entity entity) {
 		this.entityList.remove(entity);
 		return this;
-	}
-
-	public List<Entity> getEntityList() {
-		return this.entityList;
 	}
 
 	public void resetEntityList() {
