@@ -74,11 +74,11 @@ public class TeleportListener implements Listener {
 		}
 
 		if(displayName.equalsIgnoreCase(MobTp.WAND_NAME)) {
-			if(event.getRightClicked() == null) {
+			Entity entity = event.getRightClicked();
+
+			if(entity == null) {
 				return;
 			}
-
-			Entity entity = event.getRightClicked();
 
 			if(entity instanceof Player) {
 				return;
