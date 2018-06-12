@@ -115,7 +115,7 @@ public class MobTp implements CommandExecutor {
 						keep = true;
 					}
 				}
-				if(keep) {
+				if(!keep) {
 					entityManager.resetEntityList();
 					this.instance.getEntityManager().put(player.getName(), entityManager);
 				}
