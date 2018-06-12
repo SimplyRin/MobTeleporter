@@ -55,6 +55,10 @@ public class TeleportListener implements Listener {
 	public void onInteract(PlayerInteractEntityEvent event) {
 		Player player = event.getPlayer();
 
+		if(this.instance.getEntityManager().get(player.getName()) == null) {
+			this.instance.getEntityManager().put(player.getName(), new EntityManager(player));
+		}
+
 		if(player.getItemInHand() == null) {
 			return;
 		}
