@@ -38,7 +38,10 @@ import net.simplyrin.mobteleporter.tool.EntityManager;
  */
 public class Main extends JavaPlugin implements Listener {
 
-	private Main instance;
+	/**
+	 * だがしかし、Getter は設置しない。
+	 */
+	private static Main instance;
 
 	/**
 	 * player.getName(), new EntityManager(player);
@@ -48,13 +51,13 @@ public class Main extends JavaPlugin implements Listener {
 
 	@Override
 	public void onEnable() {
-		this.instance = this;
+		instance = this;
 
-		this.instance.getCommand("mobtp").setExecutor(new MobTp(this.instance));
-		this.instance.getCommand("mobteleport").setExecutor(new MobTp(this.instance));
-		this.instance.getCommand("mobteleporter").setExecutor(new MobTp(this.instance));
+		instance.getCommand("mobtp").setExecutor(new MobTp(instance));
+		instance.getCommand("mobteleport").setExecutor(new MobTp(instance));
+		instance.getCommand("mobteleporter").setExecutor(new MobTp(instance));
 
-		this.instance.getServer().getPluginManager().registerEvents(new TeleportListener(this.instance), this.instance);
+		instance.getServer().getPluginManager().registerEvents(new TeleportListener(instance), instance);
 	}
 
 	public void sendMessage(CommandSender sender, String message) {
